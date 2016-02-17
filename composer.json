@@ -1,0 +1,23 @@
+{
+    "name": "jubianchi/async-runtime",
+    "require": {
+
+    },
+    "require-dev": {
+        "atoum/atoum": "@stable"
+    },
+    "autoload": {
+        "files": ["src/functions.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "jubianchi\\async\\runtime\\tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jubianchi",
+            "email": "contact@jubianchi.fr"
+        }
+    ]
+}
