@@ -1,2 +1,4 @@
-vendor
+vendor/
+coverage/
+
 composer.lock

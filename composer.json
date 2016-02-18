@@ -1,23 +1,46 @@
 {
-    "name": "jubianchi/async-runtime",
+    "name": "jubianchi/async-generator",
+    "description": "An async generator runtime for PHP",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "async",
+        "generator",
+        "runtime"
+    ],
+    "authors": [
+        {
+            "name": "jubianchi",
+            "email": "contact@jubianchi.fr"
+        }
+    ],
     "require": {
-
+        "php": "^7.0.3"
     },
     "require-dev": {
-        "atoum/atoum": "@stable"
+        "atoum/atoum": "@stable",
+        "atoum/reports-extension": "^2.1",
+        "fabpot/php-cs-fixer": "@stable"
     },
     "autoload": {
-        "files": ["src/functions.php"]
+        "files": [
+            "src/loop/functions.php",
+            "src/pipe/functions.php",
+            "src/runtime/functions.php",
+            "src/time/functions.php",
+
+            "src/stream.php",
+            "src/socket.php",
+            "src/process.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "jubianchi\\async\\runtime\\tests\\": "tests/"
         }
     },
-    "authors": [
-        {
-            "name": "jubianchi",
-            "email": "contact@jubianchi.fr"
-        }
-    ]
+    "scripts": {
+        "cs": "php-cs-fixer fix --ansi",
+        "test": "atoum -ft"
+    }
 }
