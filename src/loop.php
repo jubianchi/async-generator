@@ -22,7 +22,7 @@ class loop
         $cancel = false;
 
         if (is_callable($condition) === false) {
-            $condition = function() use ($condition) { return $condition; };
+            $condition = function () use ($condition) { return $condition; };
         }
 
         while ($cancel == false && $condition()) {
@@ -38,7 +38,7 @@ class loop
 
     public static function until($condition, callable $resolve) : \generator
     {
-        $condition = function() use ($condition) {
+        $condition = function () use ($condition) {
             return !(is_callable($condition) ? $condition() : $condition);
         };
 
@@ -47,7 +47,7 @@ class loop
 
     public static function times(int $times, callable $resolve) : \generator
     {
-        $condition = function() use (&$times) {
+        $condition = function () use (&$times) {
             return $times-- > 0;
         };
 

@@ -32,7 +32,6 @@ function times(int $times, callable $resolve) : \generator
     return loop::times($times, $resolve);
 }
 
-
 function endless(callable $resolve) : \generator
 {
     return loop::endless($resolve);
