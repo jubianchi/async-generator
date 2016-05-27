@@ -18,38 +18,38 @@ require_once __DIR__ . '/wrapper.php';
 final class runtime
 {
     /**
-     * @param mixed $generator
+     * @param mixed $generatorOrValue
      *
      * @return mixed
      */
-    public static function await($generator)
+    public static function await($generatorOrValue)
     {
         switch (true) {
-            case $generator instanceof \generator:
-                $generator->current();
+            case $generatorOrValue instanceof \generator:
+                $generatorOrValue->current();
 
-                while ($generator->valid() === true) {
-                    $generator->next();
+                while ($generatorOrValue->valid() === true) {
+                    $generatorOrValue->next();
                 }
 
-                return self::await($generator->getReturn());
+                return self::await($generatorOrValue->getReturn());
 
-            case is_callable($generator):
-                return self::await($generator());
+            case is_callable($generatorOrValue):
+                return self::await($generatorOrValue());
 
-            case $generator instanceof wrapper:
-                return wrapper::unwrap($generator);
+            case $generatorOrValue instanceof wrapper:
+                return wrapper::unwrap($generatorOrValue);
 
-            case is_array($generator) === true:
+            case is_array($generatorOrValue) === true:
                 return array_map(
                     function ($generator) {
                         return self::await($generator);
                     },
-                    $generator
+                    $generatorOrValue
                 );
 
             default:
-                return $generator;
+                return $generatorOrValue;
         }
     }
 
@@ -64,13 +64,17 @@ final class runtime
     }
 
     /**
-     * @param \generator[] ...$generators
+     * @param \generator|mixed $first
+     * @param \generator|mixed $second
+     * @param \generator[]  ...$generators
      *
      * @return \generator
      */
-    public static function race(...$generators) : \generator
+    public static function race($first, $second, ...$generators) : \generator
     {
         $cancel = false;
+        array_unshift($generators, $second);
+        array_unshift($generators, $first);
 
         while (count($generators) > 0 && $cancel == false) {
             $generator = current($generators);

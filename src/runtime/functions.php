@@ -19,9 +19,9 @@ require_once __DIR__ . '/../wrapper.php';
 use jubianchi\async\runtime;
 use jubianchi\async\wrapper;
 
-function await($generator)
+function await($generatorOrValue)
 {
-    return runtime::await($generator);
+    return runtime::await($generatorOrValue);
 }
 
 function all(...$generators) : \generator
@@ -29,9 +29,9 @@ function all(...$generators) : \generator
     return runtime::all(...$generators);
 }
 
-function race(...$generators) : \generator
+function race($first, $second, ...$generators) : \generator
 {
-    return runtime::race(...$generators);
+    return runtime::race($first, $second, ...$generators);
 }
 
 function some(int $howMany, ...$generators) : \generator

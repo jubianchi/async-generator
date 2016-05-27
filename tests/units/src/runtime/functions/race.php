@@ -18,38 +18,12 @@ use jubianchi\async\runtime\tests\func;
 class race extends func
 {
     /** @dataProvider valueDataProvider */
-    public function testRaceValue($value)
-    {
-        $this
-            ->object($generator = race($value))->isInstanceOf(\generator::class)
-            ->variable(runtime\await($generator))->isIdenticalTo($value)
-        ;
-    }
-
-    /** @dataProvider valueDataProvider */
     public function testRaceValues($value, $otherValue = null)
     {
         $this
             ->given($otherValue = $otherValue ?? $value)
             ->then
                 ->object($generator = race($value, $otherValue))->isInstanceOf(\generator::class)
-                ->variable(runtime\await($generator))->isIdenticalTo($value)
-        ;
-    }
-
-    /** @dataProvider valueDataProvider */
-    public function testRaceGenerator($value)
-    {
-        $this
-            ->given($creator = function ($limit, $value) {
-                while ($limit-- > 0) {
-                    yield;
-                }
-
-                return $value;
-            })
-            ->then
-                ->object($generator = race($creator(3, $value)))->isInstanceOf(\generator::class)
                 ->variable(runtime\await($generator))->isIdenticalTo($value)
         ;
     }

@@ -140,38 +140,12 @@ class runtime extends atoum\test
     }
 
     /** @dataProvider valueDataProvider */
-    public function testRaceValue($value)
-    {
-        $this
-            ->object($generator = testedClass::race($value))->isInstanceOf(\generator::class)
-            ->variable(testedClass::await($generator))->isIdenticalTo($value)
-        ;
-    }
-
-    /** @dataProvider valueDataProvider */
     public function testRaceValues($value, $otherValue = null)
     {
         $this
             ->given($otherValue = $otherValue ?? $value)
             ->then
                 ->object($generator = testedClass::race($value, $otherValue))->isInstanceOf(\generator::class)
-                ->variable(testedClass::await($generator))->isIdenticalTo($value)
-        ;
-    }
-
-    /** @dataProvider valueDataProvider */
-    public function testRaceGenerator($value)
-    {
-        $this
-            ->given($creator = function ($limit, $value) {
-                while ($limit-- > 0) {
-                    yield;
-                }
-
-                return $value;
-            })
-            ->then
-                ->object($generator = testedClass::race($creator(3, $value)))->isInstanceOf(\generator::class)
                 ->variable(testedClass::await($generator))->isIdenticalTo($value)
         ;
     }

@@ -1,4 +1,5 @@
 vendor/
 coverage/
+.couscous/
 
 composer.lock

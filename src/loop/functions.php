@@ -17,21 +17,52 @@ require_once __DIR__ . '/../loop.php';
 
 use jubianchi\async\loop;
 
+/**
+ * @api
+ *
+ * @param callable|mixed $condition
+ * @param callable       $resolve
+ *
+ * @return \generator
+ */
 function whilst($condition, callable $resolve) : \generator
 {
     return loop::whilst($condition, $resolve);
 }
 
+/**
+ * @api
+ *
+ * @param callable|mixed $condition
+ * @param callable       $resolve
+ *
+ * @return \generator
+ */
 function until($condition, callable $resolve) : \generator
 {
     return loop::until($condition, $resolve);
 }
 
+/**
+ * @api
+ *
+ * @param int      $time
+ * @param callable $resolve
+ *
+ * @return \generator
+ */
 function times(int $times, callable $resolve) : \generator
 {
     return loop::times($times, $resolve);
 }
 
+/**
+ * @api
+ *
+ * @param callable $resolve
+ *
+ * @return \generator
+ */
 function endless(callable $resolve) : \generator
 {
     return loop::endless($resolve);

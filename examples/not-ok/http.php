@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use function jubianchi\async\runtime\{await, all, fork, race};
 use function jubianchi\async\time\{delay};
