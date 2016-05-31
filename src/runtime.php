@@ -73,6 +73,7 @@ final class runtime
     public static function race($first, $second, ...$generators) : \generator
     {
         $cancel = false;
+        $started = [];
         array_unshift($generators, $second);
         array_unshift($generators, $first);
 
@@ -82,7 +83,12 @@ final class runtime
 
             switch (true) {
                 case $generator instanceof \generator:
-                    $generator->next();
+                    if (in_array($generator, $started, true)) {
+                        $generator->next();
+                    } else {
+                        $generator->current();
+                        $started[] = $generator;
+                    }
 
                     if ($generator->valid() === false) {
                         unset($generators[$key]);
@@ -99,8 +105,6 @@ final class runtime
 
             yield;
         }
-
-        return;
     }
 
     /**
@@ -116,6 +120,7 @@ final class runtime
         }
 
         $results = [];
+        $started = [];
 
         while (count($generators) > 0 && count($results) < $howMany) {
             $generator = current($generators);
@@ -123,7 +128,13 @@ final class runtime
 
             switch (true) {
                 case $generator instanceof \generator:
-                    $generator->next();
+                    if (in_array($generator, $started, true)) {
+                        $generator->next();
+                    } else {
+                        $generator->current();
+                        $started[] = $generator;
+                    }
+
 
                     if ($generator->valid() === false) {
                         unset($generators[$key]);
