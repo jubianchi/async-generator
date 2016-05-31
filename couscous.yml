@@ -1,9 +1,23 @@
 title: async-generator
-subtitle: Non-blocking tasks with only PHP and generators
-
-template:
-    url: https://github.com/CouscousPHP/Template-Dark
+subTitle: Non-blocking tasks with only PHP and generators
 
 exclude:
     - coverage
     - vendor
+
+github:
+    user: jubianchi
+    repo: async-generator
+
+menu:
+    items:
+        getting-started:
+            text: Get started
+
+        documentation:
+            text: Documentation
+            relativeUrl: docs/
+
+        examples:
+            text: Examples
+            relativeUrl: docs/examples/

@@ -1,53 +1,60 @@
 # async-generator
 
-This project is in early alpha and is more a like a POC than a real production-ready library.
+**This project is in early alpha and is more a like a POC than a real production-ready library.**
 
-# Documentation
+## Requirements
 
-## Runtime (`jubianchi\async\runtime`)
+The [async-generator](https://github.com/jubianchi/async-generator) library requires PHP `^7.0.3`(i.e PHP `>= 7.0.3 && < 8.0.0`)
 
-### `await`
+## Install 
 
-`await` takes a generator or a value as its single parameter.
- 
-When it gets a generator it will walk through it until its end. It will return the generator 
-return value.
+Use [Composer](https://getcomposer.org/) to install this library into your project:
 
-`jubianchi\async\runtime::await(mixed $generatorOrValue) : mixed`
+```json
+{
+    "require": {
+        "jubianchi/async-generator": "@stable"
+    }
+}
+```
 
-### `all`
+Then run `composer up jubianchi/async-generator` and everything should be ready.
 
-`all` takes one or more generator as its arguments and will walk **concurrently** through each of them. It will return 
-a generator which will resolve to an array containing all the generators' return values.
+If you d'ont want to manually edit your `composer.json` file, simply run `composer require jubianchi/async-generator`
+and you should be ready.
 
-`jubianchi\async\runtime::all(...$generators) : \generator`
+## Testing
 
-### `race`
+Once everything is installed, create a simple PHP file: 
 
-`race` takes several generator as its arguments and will walk **concurrently** through each of them. It will return 
-a generator which will resolve with the value of the first finished generator.
+```php
+<?php
 
-`jubianchi\async\runtime::race($first, $second, ...$generators) : \generator`
+//index.php
 
-### `some`
+require_once __DIR__ . '/vendor/autoload.php';
 
-`some` takes several generator as its last arguments and a number as its first argument. It will walk **concurrently** 
-through each of the generators and return a generator as soon as the given number of generators are over.
+use function jubianchi\async\runtime\{await, all};
+use function jubianchi\async\time\{delay};
 
-`jubianchi\async\runtime::some(int $howMany, ...$generators) : \generator`
+await(
+    all(
+        delay(5000, function() { echo 'World!'; }),
+        delay(2000, function() { echo 'Hello '; })
+    )
+);
+```
 
-## Time (`jubianchi\async\time`)
+Run this script using `time php index.php`: if everything is OK, you should see the word `Hello` after 2 seconds and `World!` 
+after 5 seconds:
 
-### `delay`
+```
+Hello World!
 
-`delay` take an integer timeout (miliseconds) as its first argument and an optionnal resolved value. It will return a 
-generator which will delay the resolution of the value.
+real    0m5.029s
+user    0m4.234s
+sys     0m0.317s
+```
 
-`jubianchi\async\time::delay(int $timeout, $resolve = null) : \generator`
-
-### `throttle`
-
-`throttle` take an integer timeout (miliseconds) as its first argument and aresolved value. It will return a 
-generator which will throttle the resolution of the value.
-
-`jubianchi\async\time::throttle(int $timeout, $resolve) : \generator`
+Notice the whole script took about 5 seconds to complete when the total delay is 7 seconds: this is all the magic behind 
+this library. It allows you to write **concurrent** tasks with PHP!
