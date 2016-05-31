@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>async-generator</title>
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/highlight.dark.css">
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-default navbar-fixed-top">
+
+            <a class="navbar-brand" href="/">
+                async-generator
+                <small class="hidden-xs hidden-sm">
+                    Non-blocking tasks with only PHP and generators
+                </small>
+            </a>
+
+                            <a href="https://github.com/jubianchi/async-generator">
+                    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+                </a>
+            
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                        <ul class="nav nav-pills nav-stacked">
+                                                            <li class="">
+                                    <a href="/">
+                                        Get started
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="/docs/">
+                                        Documentation
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="/docs/examples/">
+                                        Examples
+                                    </a>
+                                </li>
+                                                    </ul>
+
+                    </nav>
+
+                
+                <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
+                    <h1 id="documentation">Documentation</h1>
+<h2 id="introduction">Introduction</h2>
+<p>PHP is a nice langage: it has been designed to be easy and fast but lacks concurrent programming capabilities. It is a
+<strong>sequential</strong> language.</p>
+<p>Developers sometimes want to achieve <strong>concurrent programming</strong> with PHP and often end up using external technologies
+like workers. Those workers have many benefits but sometime they are too heavy to just handle simple tasks.</p>
+<h3 id="concurrent-programming">Concurrent programming</h3>
+<p>When talking about concurrent programming it's useful to distinguish two methods:</p>
+<ul>
+<li>Parallel computing</li>
+<li>Concurrent computing</li>
+</ul>
+<p>To sum-up the difference between those two paradigm, let's look at some diagram.</p>
+<p><strong>Parellel computing</strong> means two tasks will run in parallel without blocking each other:</p>
+<pre><code>    +- - - - - - - - - - -+
+    |                     |
+- - +                     + - - &gt;
+    |                     |
+    +- - - - - - - - - - -+</code></pre>
+<p><strong>Concurrent programming</strong> is a bit different: two tasks will race together and each time a task is paused, the main
+program will switch context and work on the other task: </p>
+<pre><code>    +- - -       - -     -+
+    |                     |
+- - +                     + - - &gt;
+    |                     |
+    +-     - - -     - - -+</code></pre>
+<h3 id="async-generators">Async generators</h3>
+<p>Async generators try to solve this issue by <strong>allowing developers to implement concurrent programming</strong>. Thanks to the
+<code>yield</code> keyword, we can make PHP pause processing something and switch to another task.</p>
+<p>The library provides some low-level functions grouped in logical namespaces to make things easier:</p>
+<ul>
+<li><a href="runtime.html">Runtime</a>: this namespace provides generic functions to work with concurrency</li>
+<li><a href="time.html">Time</a>: this namespace provides functions to work with time</li>
+<li><a href="pipe.html">Pipe</a>: this namespace provides functions to work with pipes</li>
+<li><a href="loop.html">Loop</a>: this namespace provides functions to make concurrent loops </li>
+<li><a href="stream.html">Stream</a>: this namespace provides functions to work with streams</li>
+<li><a href="socket.html">Socket</a>: this namespace provides functions to work with sockets</li>
+</ul>
+                </section>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="container-fluid">
+                <p class="text-muted">
+                    website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                $("section>h1").wrap('<div class="page-header" />');
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>
