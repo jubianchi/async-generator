@@ -1,5 +1,6 @@
 title: async-generator
 subTitle: Non-blocking tasks with only PHP and generators
+baseUrl: http://jubianchi.github.io/async-generator
 
 exclude:
     - coverage
