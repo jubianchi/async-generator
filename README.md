@@ -20,7 +20,7 @@ Use [Composer](https://getcomposer.org/) to install this library into your proje
 
 Then run `composer up jubianchi/async-generator` and everything should be ready.
 
-If you d'ont want to manually edit your `composer.json` file, simply run `composer require jubianchi/async-generator`
+If you don't want to manually edit your `composer.json` file, simply run `composer require jubianchi/async-generator`
 and you should be ready.
 
 ## Testing
