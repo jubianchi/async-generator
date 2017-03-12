@@ -47,8 +47,8 @@ $length = 0;
 
 await(
     all(
-        read($f1, function($data) use (& $length) { $length += strlen($data); }, null, BUFFER_LENGTH),
-        read($f2, function($data) use (& $length) { $length += strlen($data); }, null, BUFFER_LENGTH)
+        read($f1, function($data) use (& $length) { $length += strlen($data); }, BUFFER_LENGTH),
+        read($f2, function($data) use (& $length) { $length += strlen($data); }, BUFFER_LENGTH)
     )
 );
 
